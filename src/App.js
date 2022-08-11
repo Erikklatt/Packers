@@ -1,176 +1,66 @@
 import Players from './players.json';
 import YearStats from './yearstats.json'
 import './App.css';
-import { Tabs, Tab, Box } from '@mui/material';
+import {
+  Tabs,
+  Tab,
+  Box,
+  Stack,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem } from '@mui/material';
+import Avatar from '@mui/material/Avatar';
 import React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
+import { columns } from './cleanup';
+import aaronJones from "./static/AaronJones.jpg";
+import aaronRodgers from "./static/AaronRodgers.jpg";
+import ajDillon from "./static/AjDillon.jpg";
+import randallCobb from "./static/RandallCobb.jpg";
+import sammyWatkins from "./static/SammyWatkins.jpg";
+
+const playerImage = (playerID) => {
+  switch(playerID) {
+    case 1:
+      return aaronRodgers;
+    case 2:
+      return randallCobb;
+    case 3:
+      return sammyWatkins;
+    case 4:
+      return ajDillon;
+    case 5:
+      return aaronJones;
+    default:
+      return 'foo';
+  }
+}
 
 function App() {
-  const playerData = Players.map((player) => player);
-  const yearStats = YearStats.map((stats) => stats);
+  const setupViewingPlayerData = (data, playerNumber) => {
+    const a = data.filter((player) => player.PlayerId === playerNumber)
+    return a;
+  }
+
   const [value, setValue] = React.useState(0);
   const [playerID, setPlayerID] = React.useState(1);
+  const [viewingPlayer, setViewingPlayer] = React.useState(setupViewingPlayerData(Players, playerID));
+  const [seasonStats, setSeasonStats] = React.useState(2021);
   const handleChange = (event, newValue) => {
+    const playerNumber = newValue + 1;
     setValue(newValue);
-    setPlayerID(newValue + 1);
+    setPlayerID(playerNumber);
+    setViewingPlayer(setupViewingPlayerData(Players, playerNumber));
   };
-
-  const columns = [
-    {
-      field: 'game',
-      headerName: 'GameKey',
-      width: 100,
-      editable: false,
-    },
-    {
-      field: 'season',
-      headerName: 'Year',
-      width: 100,
-      editable: false,
-    },
-    {
-      field: 'team',
-      headerName: 'Teams',
-      width: 175,
-      editable: false,
-    },
-    {
-      field: 'qbAttempts',
-      headerName: 'QBAttempts',
-      width: 150,
-      editable: false,
-    },
-    {
-      field: 'qbCompletions',
-      headerName: 'QBCompletions',
-      width: 150,
-      editable: false,
-    },
-    {
-      field: 'qbYards',
-      headerName: 'QBYards',
-      width: 150,
-      editable: false,
-    },
-    {
-      field: 'qbInterceptions',
-      headerName: 'QBInterceptions',
-      width: 150, //Could probably make this width smaller for Rodgers ;)
-      editable: false,
-    },{
-      field: 'qbRating',
-      headerName: 'QBRating',
-      width: 150,
-      editable: false,
-    },
-    {
-      field: 'recReceptions',
-      headerName: 'RecReceptions',
-      width: 150,
-      editable: false,
-    },
-    {
-      field: 'recYards',
-      headerName: 'RecYards',
-      width: 150,
-      editable: false,
-    },
-    {
-      field: 'recLong',
-      headerName: 'RecLong',
-      width: 150,
-      editable: false,
-    },
-    {
-      field: 'recLongTDReception',
-      headerName: 'RecLongTDReception',
-      width: 150,
-      editable: false,
-    },
-    {
-      field: 'recTouchdowns',
-      headerName: 'RecTouchdowns',
-      width: 150,
-      editable: false,
-    },
-    {
-      field: 'recTwoPointAttempts',
-      headerName: 'RecTwoPointAttempts',
-      width: 150,
-      editable: false,
-    },
-    {
-      field: 'recTwoPointConversions',
-      headerName: 'RecTwoPointConversions',
-      width: 150,
-      editable: false,
-    },
-    {
-      field: 'recPassTarget',
-      headerName: 'RecPassTarget',
-      width: 150,
-      editable: false,
-    },
-    {
-      field: 'recYAC',
-      headerName: 'RecYAC',
-      width: 150,
-      editable: false,
-    },
-    {
-      field: 'rusAttempts',
-      headerName: 'RusAttempts',
-      width: 150,
-      editable: false,
-    },
-    {
-      field: 'rusYards',
-      headerName: 'RusYards',
-      width: 150,
-      editable: false,
-    },
-    {
-      field: 'rusLong',
-      headerName: 'RusLong',
-      width: 150,
-      editable: false,
-    },
-    {
-      field: 'rusLongTDRush',
-      headerName: 'RusLongTDRush',
-      width: 150,
-      editable: false,
-    },
-    {
-      field: 'rusTouchdowns',
-      headerName: 'RusTouchdowns',
-      width: 150,
-      editable: false,
-    },
-    {
-      field: 'rusTwoPointAttempts',
-      headerName: 'RusTwoPointAttempts',
-      width: 150,
-      editable: false,
-    },
-    {
-      field: 'rusTwoPointConversions',
-      headerName: 'RusTwoPointConversions',
-      width: 150,
-      editable: false,
-    },
-    {
-      field: 'rusYAC',
-      headerName: 'RusYAC',
-      width: 150,
-      editable: false,
-    },
-  ];
-
-  const sortOutPlayerData = (yearStats) => {
+  const handleSeasonChange = (event) => {
+    console.log(event);
+    setSeasonStats(event.target.value);
+  };
+  const gameBySeasonData = (yearStats) => {
     let row = [];
     yearStats.forEach((season) => {
-      if(season.PlayerId === playerID && season.Season === 2021){
+      if(season.PlayerId === playerID && season.Season === seasonStats){
         row.push({
           id: season.GameKey,
           game: season.GameKey,
@@ -207,13 +97,14 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <Tabs 
+        <Tabs
+          style={{marginBottom: '50px'}}
           value={value}
           onChange={handleChange}
           centered
           TabIndicatorProps={{ style: { background: '#FFB612' } }}
         >
-          {playerData.map((player) =>
+          {Players.map((player) =>
             <Tab 
               label={player.PlayerName}
               key={player.PlayerId}
@@ -222,56 +113,94 @@ function App() {
           )}
         </Tabs>
       </header>
-      <Box style={styles.box}>
-        <DataGrid
-          style={styles.grid}
-          rows={sortOutPlayerData(yearStats)}
-          columns={columns}
-          pageSize={15}
-          rowsPerPageOptions={[15]}
-          disableSelectionOnClick
-          />
-      </Box>
-      {/* {yearStats.map(season => {
-        return season.PlayerId === playerID && season.Season === 2017 ?
-          <Box key={season.GameKey} style={styles.box}>
+      <div style={styles.wrapper}>
+        <div style={styles.playerInfo}>
+          <div>
+            <Avatar sx={{ width: 125, height: 125 }} src={playerImage(playerID)} />
+          </div>
+          <Stack style={styles.stack} spacing={2}>
+            <div>Name</div>
+            <div>Team Name</div>
+            <div>Weight</div>
+            <div>Position</div>
+          </Stack>
+          <Stack style={styles.stack} spacing={2}>
+            <div>{viewingPlayer[0]?.PlayerName || ''}</div>
+            <div>{viewingPlayer[0]?.TeamName + ', ' + viewingPlayer[0]?.TeamAbbreviation  || ''}</div>
+            <div>{viewingPlayer[0]?.Wgt || ''}</div>
+            <div>{viewingPlayer[0]?.PositionId || ''}</div>
+          </Stack>
+        </div>
+        <div>
+          <Box sx={{ maxWidth: 120 }}>
+            <FormControl fullWidth >
+              <InputLabel id="demo-simple-select-label" style={{color: 'white'}}>Season</InputLabel>
+              <Select
+                style={styles.dropDown}
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={seasonStats}
+                label="Season"
+                onChange={handleSeasonChange}
+              >
+                <MenuItem value={2021}>2021</MenuItem>
+                <MenuItem value={2020}>2020</MenuItem>
+                <MenuItem value={2019}>2019</MenuItem>
+                <MenuItem value={2018}>2018</MenuItem>
+                <MenuItem value={2017}>2017</MenuItem>
+                <MenuItem value={2016}>2016</MenuItem>
+                <MenuItem value={2015}>2015</MenuItem>
+                <MenuItem value={2014}>2014</MenuItem>
+                <MenuItem value={2013}>2013</MenuItem>
+                <MenuItem value={2012}>2012</MenuItem>
+                <MenuItem value={2011}>2011</MenuItem>
+                <MenuItem value={2010}>2010</MenuItem>
+                <MenuItem value={2009}>2009</MenuItem>
+                <MenuItem value={2008}>2008</MenuItem>
+                <MenuItem value={2007}>2007</MenuItem>
+                <MenuItem value={2006}>2006</MenuItem>
+                <MenuItem value={2005}>2005</MenuItem>
+              </Select>
+            </FormControl>
+          </Box>
+          <Box style={styles.box}>
             <DataGrid
               style={styles.grid}
-              rows={sortOutPlayerData(season)}
+              rows={gameBySeasonData(YearStats)}
               columns={columns}
-              pageSize={5}
-              rowsPerPageOptions={[5]}
-              checkboxSelection
+              pageSize={15}
+              rowsPerPageOptions={[15]}
               disableSelectionOnClick
               />
           </Box>
-        :
-        null
-        }
-      )} */}
-      {/* {playerData.map(player => {
-        return player.PlayerId === playerID ?
-        <Box style={styles.box}>
-          <DataGrid
-            style={styles.grid}
-            rows={sortOutPlayerData(player)}
-            columns={columns}
-            pageSize={5}
-            rowsPerPageOptions={[5]}
-            checkboxSelection
-            disableSelectionOnClick
-            />
-        </Box>
-        :
-        null
-        }
-      )} */}
+        </div>
+      </div>
     </div>
   );
 }
 
 const styles = {
-  
+  dropDown: {
+    outline: 'red',
+    color: 'white',
+    backgroundColor: '#565656',
+    borderColor: 'red'
+  },
+  wrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center'
+  },
+  playerInfo: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'start',
+  },
+  stack: {
+    color: 'white',
+    alignItems: 'baseline',
+    margin: '0 25px 0 25px'
+  },
   tab: {
       padding: '2px 34px',
       width: '140px',
@@ -284,10 +213,7 @@ const styles = {
   },
   box: {
     height: '400px',
-    position: 'absolute', 
-    left: '30%', 
-    top: '50%',
-    background: 'gray'
+    background: '#565656'
   },
   grid: {
     width: '900px',
