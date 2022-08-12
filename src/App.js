@@ -116,6 +116,7 @@ function App() {
       <div style={styles.wrapper}>
         <div style={styles.playerInfo}>
           <div>
+            test
             <Avatar sx={{ width: 125, height: 125 }} src={playerImage(playerID)} />
           </div>
           <Stack style={styles.stack} spacing={2}>
