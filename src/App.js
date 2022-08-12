@@ -129,8 +129,8 @@ function App() {
             <div>Position :</div>
           </Stack>
           <Stack style={styles.stack} spacing={2}>
-            <div>{viewingPlayer[0]?.PlayerName || ''}</div>
-            <div>{viewingPlayer[0]?.TeamName + ', ' + viewingPlayer[0]?.TeamAbbreviation  || ''}</div>
+            <a style={{color: '#FFB612'}} href="https://www.instagram.com/aaronrodgers12/?hl=en" target="_blank"><div>{viewingPlayer[0]?.PlayerName || ''}</div></a>
+            <a style={{color: '#FFB612'}} href="https://www.packers.com/" target="_blank"><div>{viewingPlayer[0]?.TeamName + ', ' + viewingPlayer[0]?.TeamAbbreviation  || ''}</div></a>
             <div>{viewingPlayer[0]?.Wgt || ''}</div>
             <div>{viewingPlayer[0]?.PositionId || ''}</div>
           </Stack>
