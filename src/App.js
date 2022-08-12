@@ -19,6 +19,7 @@ import aaronRodgers from "./static/AaronRodgers.jpg";
 import ajDillon from "./static/AjDillon.jpg";
 import randallCobb from "./static/RandallCobb.jpg";
 import sammyWatkins from "./static/SammyWatkins.jpg";
+import packersLogo from "./static/packersLogo.png";
 
 const playerImage = (playerID) => {
   switch(playerID) {
@@ -97,21 +98,24 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <Tabs
-          style={{marginBottom: '50px'}}
-          value={value}
-          onChange={handleChange}
-          centered
-          TabIndicatorProps={{ style: { background: '#FFB612' } }}
-        >
-          {Players.map((player) =>
-            <Tab 
-              label={player.PlayerName}
-              key={player.PlayerId}
-              style={styles.tab}
-            />
-          )}
-        </Tabs>
+        <div style={styles.headerWrapper}>
+          <img style={{width: '80px', height: '65px', marginRight: '500px', paddingTop: '8px'}} src={packersLogo} />
+          <Tabs
+            style={{marginBottom: '50px'}}
+            value={value}
+            onChange={handleChange}
+            centered
+            TabIndicatorProps={{ style: { background: '#FFB612' } }}
+          >
+            {Players.map((player) =>
+              <Tab 
+                label={player.PlayerName}
+                key={player.PlayerId}
+                style={styles.tab}
+              />
+            )}
+          </Tabs>
+        </div>
       </header>
       <div style={styles.wrapper}>
         <div style={styles.playerInfo}>
@@ -119,10 +123,10 @@ function App() {
             <Avatar sx={{ width: 125, height: 125 }} src={playerImage(playerID)} />
           </div>
           <Stack style={styles.stack} spacing={2}>
-            <div>Name</div>
-            <div>Team Name</div>
-            <div>Weight</div>
-            <div>Position</div>
+            <div>Name :</div>
+            <div>Team Name :</div>
+            <div>Weight :</div>
+            <div>Position :</div>
           </Stack>
           <Stack style={styles.stack} spacing={2}>
             <div>{viewingPlayer[0]?.PlayerName || ''}</div>
@@ -131,7 +135,7 @@ function App() {
             <div>{viewingPlayer[0]?.PositionId || ''}</div>
           </Stack>
         </div>
-        <div>
+        <div style={styles.bottomData}>
           <Box sx={{ maxWidth: 120 }}>
             <FormControl fullWidth >
               <InputLabel id="demo-simple-select-label" style={{color: 'white'}}>Season</InputLabel>
@@ -173,6 +177,11 @@ function App() {
               disableSelectionOnClick
               />
           </Box>
+          <div style={{display: 'flex', placeContent: 'space-between'}}>
+            <a style={{color: '#FFB612'}} href="https://www.packers.com/team/players-roster/" target="_blank">Full Roster</a>
+            <a style={{color: '#FFB612'}} href="https://www.packers.com/news/" target="_blank">Packers News</a>
+            <a style={{color: '#FFB612'}} href="https://www.packers.com/schedule//" target="_blank">Schedule</a>
+          </div>
         </div>
       </div>
     </div>
@@ -180,6 +189,9 @@ function App() {
 }
 
 const styles = {
+  headerWrapper: {
+    display: 'flex'
+  },
   dropDown: {
     outline: 'red',
     color: 'white',
@@ -189,9 +201,10 @@ const styles = {
   wrapper: {
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   playerInfo: {
+    margin: '50px 0 100px 0',
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'start',
