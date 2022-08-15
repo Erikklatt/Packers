@@ -121,7 +121,7 @@ const styles = {
         background: '#565656'
     },
     grid: {
-        width: '900px',
+        width: '50vw',
         color: 'white'
     }
 }

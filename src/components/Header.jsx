@@ -12,7 +12,7 @@ export const Header = (props) => {
     return (
         <header className="App-header">
         <div style={styles.headerWrapper}>
-            <img style={{width: '80px', height: '65px', marginRight: '500px', paddingTop: '8px'}} alt='' src={packersLogo} />
+            <img style={{width: '80px', height: '65px', margin: '8px 0 0 8px'}} alt='' src={packersLogo} />
             <Tabs
             style={{marginBottom: '50px'}}
             value={value}
@@ -28,6 +28,7 @@ export const Header = (props) => {
                 />
             )}
             </Tabs>
+            <img style={{width: '80px', height: '65px', margin: '8px 8px 0 0'}} alt='' src={packersLogo} />
         </div>
         </header>
     );
@@ -35,7 +36,8 @@ export const Header = (props) => {
 
 const styles = {
   headerWrapper: {
-    display: 'flex'
+    display: 'flex',
+    justifyContent: 'space-between',
   },
   tab: {
       padding: '2px 34px',
