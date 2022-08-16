@@ -4,7 +4,7 @@
     {
       field: 'game',
       headerName: 'GameKey',
-      width: 100,
+      width: 150,
       editable: false,
     },
     {
@@ -28,6 +28,12 @@
     {
       field: 'qbCompletions',
       headerName: 'QBCompletions',
+      width: 150,
+      editable: false,
+    },
+    {
+      field: 'qbTouchdowns',
+      headerName: 'QBTouchdowns',
       width: 150,
       editable: false,
     },
@@ -164,6 +170,12 @@
     {
       field: 'qbCompletions',
       headerName: 'QBCompletions',
+      width: 150,
+      editable: false,
+    },
+    {
+      field: 'qbTouchdowns',
+      headerName: 'QBTouchdowns',
       width: 150,
       editable: false,
     },

@@ -21,44 +21,71 @@ export const PlayerStats = (props) => {
     };
     const gameBySeasonData = (yearStats) => {
         let row = [];
-
-        yearStats.forEach((game) => {
-            if(game.PlayerId === playerID && game.Season === seasonStats){
-            row.push({
-              id: game.GameKey,
-              game: game.GameKey,
-              season: game.Season,
-              team: game.HomeAbbr + ' vs ' + game.AwayAbbr,
-              qbAttempts: game.QBAttempts,
-              qbCompletions: game.QBCompletions,
-              qbYards: game.QBYards,
-              qbInterceptions: game.QBInterceptions,
-              qbRating: game.QBRating,
-              recReceptions: game.RecReceptions,
-              recYards: game.RecYards,
-              recLong: game.RecLong,
-              recLongTDReception: game.RecLongTDReception,
-              recTouchdowns: game.RecTouchdowns,
-              recTwoPointAttempts: game.RecTwoPointAttempts,
-              recTwoPointConversions: game.RecTwoPointConversions,
-              recPassTarget: game.RecPassTarget,
-              recYAC: game.RecYAC,
-              rusAttempts: game.RusAttempts,
-              rusYards: game.RusYards,
-              rusLong: game.RusLong,
-              rusLongTDRush: game.RusLongTDRush,
-              rusTouchdowns: game.RusTouchdowns,
-              rusTwoPointAttempts: game.RusTwoPointAttempts,
-              rusTwoPointConversions: game.RusTwoPointConversions,
-              rusYAC: game.RusYAC,
+        if(seasonStats !== 'Total'){
+            yearStats.forEach((game) => {
+                if(game.PlayerId === playerID && game.Season === seasonStats){
+                    console.log(game)
+                row.push({
+                id: game.GameKey,
+                game: game.GameKey,
+                season: game.Season,
+                team: game.HomeAbbr + ' vs ' + game.AwayAbbr,
+                qbAttempts: game.QBAttempts,
+                qbCompletions: game.QBCompletions,
+                qbTouchdowns: game.QBTouchdowns,
+                qbYards: game.QBYards,
+                qbInterceptions: game.QBInterceptions,
+                qbRating: game.QBRating,
+                recReceptions: game.RecReceptions,
+                recYards: game.RecYards,
+                recLong: game.RecLong,
+                recLongTDReception: game.RecLongTDReception,
+                recTouchdowns: game.RecTouchdowns,
+                recTwoPointAttempts: game.RecTwoPointAttempts,
+                recTwoPointConversions: game.RecTwoPointConversions,
+                recPassTarget: game.RecPassTarget,
+                recYAC: game.RecYAC,
+                rusAttempts: game.RusAttempts,
+                rusYards: game.RusYards,
+                rusLong: game.RusLong,
+                rusLongTDRush: game.RusLongTDRush,
+                rusTouchdowns: game.RusTouchdowns,
+                rusTwoPointAttempts: game.RusTwoPointAttempts,
+                rusTwoPointConversions: game.RusTwoPointConversions,
+                rusYAC: game.RusYAC,
+                })
+            } 
             })
-          } 
-        })
-        if(seasonStats === 'Total'){
+            //Push Season Totals
+            row.push({
+                id: row.GameKey + 1,
+                game: 'Season Totals: ',
+                qbAttempts: row.reduce((a,v) =>  a = a + Number(v?.qbAttempts) , 0 ),
+                qbCompletions: row.reduce((a,v) =>  a = a + Number(v?.qbCompletions) , 0 ),
+                qbTouchdowns: row.reduce((a,v) =>  a = a + Number(v?.qbTouchdowns) , 0 ),
+                qbYards: row.reduce((a,v) =>  a = a + Number(v?.qbYards) , 0 ),
+                qbInterceptions: row.reduce((a,v) =>  a = a + Number(v?.qbInterceptions) , 0 ),
+                recReceptions: row.reduce((a,v) =>  a = a + Number(v?.recReceptions) , 0 ),
+                recYards: row.reduce((a,v) =>  a = a + Number(v?.recYards) , 0 ),
+                recTouchdowns: row.reduce((a,v) =>  a = a + Number(v?.recTouchdowns) , 0 ),
+                recTwoPointAttempts: row.reduce((a,v) =>  a = a + Number(v?.recTwoPointAttempts) , 0 ),
+                recTwoPointConversions: row.reduce((a,v) =>  a = a + Number(v?.recTwoPointConversions) , 0 ),
+                recPassTarget: row.reduce((a,v) =>  a = a + Number(v?.recPassTarget) , 0 ),
+                recYAC: row.reduce((a,v) =>  a = a + Number(v?.recYAC) , 0 ),
+                rusAttempts: row.reduce((a,v) =>  a = a + Number(v?.rusAttempts) , 0 ),
+                rusYards: row.reduce((a,v) =>  a = a + Number(v?.rusYards) , 0 ),
+                rusTouchdowns: row.reduce((a,v) =>  a = a + Number(v?.rusTouchdowns) , 0 ),
+                rusTwoPointAttempts: row.reduce((a,v) =>  a = a + Number(v?.rusTwoPointAttempts) , 0 ),
+                rusTwoPointConversions: row.reduce((a,v) =>  a = a + Number(v?.rusTwoPointConversions) , 0 ),
+                rusYAC: row.reduce((a,v) =>  a = a + Number(v?.rusYAC) , 0 ),
+            });
+        }else{
+            //Else push Career Stats
             row.push({
                 id: yearStats.GameKey + 1,
                 qbAttempts: yearStats.filter((player) => player.PlayerId === playerID).reduce((a,v) =>  a = a + Number(v?.QBAttempts) , 0 ),
                 qbCompletions: yearStats.filter((player) => player.PlayerId === playerID).reduce((a,v) =>  a = a + Number(v?.QBCompletions) , 0 ),
+                qbTouchdowns: yearStats.filter((player) => player.PlayerId === playerID).reduce((a,v) =>  a = a + Number(v?.QBTouchdowns) , 0 ),
                 qbYards: yearStats.filter((player) => player.PlayerId === playerID).reduce((a,v) =>  a = a + Number(v?.QBYards) , 0 ),
                 qbInterceptions: yearStats.filter((player) => player.PlayerId === playerID).reduce((a,v) =>  a = a + Number(v?.QBInterceptions) , 0 ),
                 recReceptions: yearStats.filter((player) => player.PlayerId === playerID).reduce((a,v) =>  a = a + Number(v?.RecReceptions) , 0 ),
@@ -114,7 +141,7 @@ export const PlayerStats = (props) => {
               </Select>
             </FormControl>
           </Box>
-          <Box style={styles.box}>
+          <Box>
             <DataGrid
               style={styles.grid}
               rows={gameBySeasonData(YearStats)}
@@ -140,12 +167,10 @@ const styles = {
         backgroundColor: '#565656',
         borderColor: 'red'
     },
-    box: {
-        height: '400px',
-        background: '#565656'
-    },
     grid: {
-        width: '60vw',
+        background: '#565656',
+        height: '48vh',
+        width: '65vw',
         color: 'white'
     }
 }
