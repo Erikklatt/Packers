@@ -8,7 +8,7 @@ import {
   MenuItem } from '@mui/material';
 import React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
-import { columns } from '../cleanup';
+import { columns, columnsTotals } from '../cleanup';
 
 
 export const PlayerStats = (props) => {
@@ -17,42 +17,65 @@ export const PlayerStats = (props) => {
     } = props;
     const [seasonStats, setSeasonStats] = React.useState(2021);
     const handleSeasonChange = (event) => {
-    setSeasonStats(event.target.value);
+        setSeasonStats(event.target.value);
     };
     const gameBySeasonData = (yearStats) => {
         let row = [];
-        yearStats.forEach((season) => {
-          if(season.PlayerId === playerID && season.Season === seasonStats){
+
+        yearStats.forEach((game) => {
+            if(game.PlayerId === playerID && game.Season === seasonStats){
             row.push({
-              id: season.GameKey,
-              game: season.GameKey,
-              season: season.Season,
-              team: season.HomeAbbr + ' vs ' + season.AwayAbbr,
-              qbAttempts: season.QBAttempts,
-              qbCompletions: season.QBCompletions,
-              qbYards: season.QBYards,
-              qbInterceptions: season.QBInterceptions,
-              qbRating: season.QBRating,
-              recReceptions: season.RecReceptions,
-              recYards: season.RecYards,
-              recLong: season.RecLong,
-              recLongTDReception: season.RecLongTDReception,
-              recTouchdowns: season.RecTouchdowns,
-              recTwoPointAttempts: season.RecTwoPointAttempts,
-              recTwoPointConversions: season.RecTwoPointConversions,
-              recPassTarget: season.RecPassTarget,
-              recYAC: season.RecYAC,
-              rusAttempts: season.RusAttempts,
-              rusYards: season.RusYards,
-              rusLong: season.RusLong,
-              rusLongTDRush: season.RusLongTDRush,
-              rusTouchdowns: season.RusTouchdowns,
-              rusTwoPointAttempts: season.RusTwoPointAttempts,
-              rusTwoPointConversions: season.RusTwoPointConversions,
-              rusYAC: season.RusYAC,
+              id: game.GameKey,
+              game: game.GameKey,
+              season: game.Season,
+              team: game.HomeAbbr + ' vs ' + game.AwayAbbr,
+              qbAttempts: game.QBAttempts,
+              qbCompletions: game.QBCompletions,
+              qbYards: game.QBYards,
+              qbInterceptions: game.QBInterceptions,
+              qbRating: game.QBRating,
+              recReceptions: game.RecReceptions,
+              recYards: game.RecYards,
+              recLong: game.RecLong,
+              recLongTDReception: game.RecLongTDReception,
+              recTouchdowns: game.RecTouchdowns,
+              recTwoPointAttempts: game.RecTwoPointAttempts,
+              recTwoPointConversions: game.RecTwoPointConversions,
+              recPassTarget: game.RecPassTarget,
+              recYAC: game.RecYAC,
+              rusAttempts: game.RusAttempts,
+              rusYards: game.RusYards,
+              rusLong: game.RusLong,
+              rusLongTDRush: game.RusLongTDRush,
+              rusTouchdowns: game.RusTouchdowns,
+              rusTwoPointAttempts: game.RusTwoPointAttempts,
+              rusTwoPointConversions: game.RusTwoPointConversions,
+              rusYAC: game.RusYAC,
             })
-          }
+          } 
         })
+        if(seasonStats === 'Total'){
+            row.push({
+                id: yearStats.GameKey + 1,
+                qbAttempts: yearStats.filter((player) => player.PlayerId === playerID).reduce((a,v) =>  a = a + Number(v?.QBAttempts) , 0 ),
+                qbCompletions: yearStats.filter((player) => player.PlayerId === playerID).reduce((a,v) =>  a = a + Number(v?.QBCompletions) , 0 ),
+                qbYards: yearStats.filter((player) => player.PlayerId === playerID).reduce((a,v) =>  a = a + Number(v?.QBYards) , 0 ),
+                qbInterceptions: yearStats.filter((player) => player.PlayerId === playerID).reduce((a,v) =>  a = a + Number(v?.QBInterceptions) , 0 ),
+                recReceptions: yearStats.filter((player) => player.PlayerId === playerID).reduce((a,v) =>  a = a + Number(v?.RecReceptions) , 0 ),
+                recYards: yearStats.filter((player) => player.PlayerId === playerID).reduce((a,v) =>  a = a + Number(v?.RecYards) , 0 ),
+                recTouchdowns: yearStats.filter((player) => player.PlayerId === playerID).reduce((a,v) =>  a = a + Number(v?.RecTouchdowns) , 0 ),
+                recTwoPointAttempts: yearStats.filter((player) => player.PlayerId === playerID).reduce((a,v) =>  a = a + Number(v?.RecTwoPointAttempts) , 0 ),
+                recTwoPointConversions: yearStats.filter((player) => player.PlayerId === playerID).reduce((a,v) =>  a = a + Number(v?.RecTwoPointConversions) , 0 ),
+                recPassTarget: yearStats.filter((player) => player.PlayerId === playerID).reduce((a,v) =>  a = a + Number(v?.RecPassTarget) , 0 ),
+                recYAC: yearStats.filter((player) => player.PlayerId === playerID).reduce((a,v) =>  a = a + Number(v?.RecYAC) , 0 ),
+                rusAttempts: yearStats.filter((player) => player.PlayerId === playerID).reduce((a,v) =>  a = a + Number(v?.RusAttempts) , 0 ),
+                rusYards: yearStats.filter((player) => player.PlayerId === playerID).reduce((a,v) =>  a = a + Number(v?.RusYards) , 0 ),
+                rusTouchdowns: yearStats.filter((player) => player.PlayerId === playerID).reduce((a,v) =>  a = a + Number(v?.RusTouchdowns) , 0 ),
+                rusTwoPointAttempts: yearStats.filter((player) => player.PlayerId === playerID).reduce((a,v) =>  a = a + Number(v?.RusTwoPointAttempts) , 0 ),
+                rusTwoPointConversions: yearStats.filter((player) => player.PlayerId === playerID).reduce((a,v) =>  a = a + Number(v?.RusTwoPointConversions) , 0 ),
+                rusYAC: yearStats.filter((player) => player.PlayerId === playerID).reduce((a,v) =>  a = a + Number(v?.RusYAC) , 0 ),
+              })
+        }
         return row.sort((a, b) => (a.GameKey > b.GameKey) ? 1 : -1);
     }
 
@@ -70,6 +93,7 @@ export const PlayerStats = (props) => {
                 onChange={handleSeasonChange}
               >
                 {/* I would have liked to loop through here and grab the year from the players data, and create a MenuItem for each row */}
+                <MenuItem value={'Total'}>Career Total</MenuItem>
                 <MenuItem value={2021}>2021</MenuItem>
                 <MenuItem value={2020}>2020</MenuItem>
                 <MenuItem value={2019}>2019</MenuItem>
@@ -94,12 +118,12 @@ export const PlayerStats = (props) => {
             <DataGrid
               style={styles.grid}
               rows={gameBySeasonData(YearStats)}
-              columns={columns}
+              columns={seasonStats === 'Total' ? columnsTotals : columns}
               pageSize={15}
               rowsPerPageOptions={[15]}
               disableSelectionOnClick
             //   MUI Offers pinning of columns in their pro tier,
-            //   I would like to have done that here with the first few columns to better view the game stats
+            //   I would have liked to have done that here with the first few columns to better view the game stats
             //   EX: initialState={{
             //         pinnedColumns: { left: ['GameKey'] },
             //     }}
@@ -111,7 +135,7 @@ export const PlayerStats = (props) => {
 
 const styles = {
     dropDown: {
-        outline: 'red',
+        width: '200px',
         color: 'white',
         backgroundColor: '#565656',
         borderColor: 'red'
@@ -121,7 +145,7 @@ const styles = {
         background: '#565656'
     },
     grid: {
-        width: '50vw',
+        width: '60vw',
         color: 'white'
     }
 }

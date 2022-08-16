@@ -151,3 +151,110 @@
       editable: false,
     },
   ];
+
+  
+
+  export const columnsTotals = [
+    {
+      field: 'qbAttempts',
+      headerName: 'QBAttempts',
+      width: 150,
+      editable: false,
+    },
+    {
+      field: 'qbCompletions',
+      headerName: 'QBCompletions',
+      width: 150,
+      editable: false,
+    },
+    {
+      field: 'qbYards',
+      headerName: 'QBYards',
+      width: 150,
+      editable: false,
+    },
+    {
+      field: 'qbInterceptions',
+      headerName: 'QBInterceptions',
+      width: 150,
+      editable: false,
+    },
+    {
+      field: 'recReceptions',
+      headerName: 'RecReceptions',
+      width: 150,
+      editable: false,
+    },
+    {
+      field: 'recYards',
+      headerName: 'RecYards',
+      width: 150,
+      editable: false,
+    },
+    {
+      field: 'recTouchdowns',
+      headerName: 'RecTouchdowns',
+      width: 150,
+      editable: false,
+    },
+    {
+      field: 'recTwoPointAttempts',
+      headerName: 'RecTwoPointAttempts',
+      width: 200,
+      editable: false,
+    },
+    {
+      field: 'recTwoPointConversions',
+      headerName: 'RecTwoPointConversions',
+      width: 200,
+      editable: false,
+    },
+    {
+      field: 'recPassTarget',
+      headerName: 'RecPassTarget',
+      width: 150,
+      editable: false,
+    },
+    {
+      field: 'recYAC',
+      headerName: 'RecYAC',
+      width: 150,
+      editable: false,
+    },
+    {
+      field: 'rusAttempts',
+      headerName: 'RusAttempts',
+      width: 150,
+      editable: false,
+    },
+    {
+      field: 'rusYards',
+      headerName: 'RusYards',
+      width: 150,
+      editable: false,
+    },
+    {
+      field: 'rusTouchdowns',
+      headerName: 'RusTouchdowns',
+      width: 150,
+      editable: false,
+    },
+    {
+      field: 'rusTwoPointAttempts',
+      headerName: 'RusTwoPointAttempts',
+      width: 200,
+      editable: false,
+    },
+    {
+      field: 'rusTwoPointConversions',
+      headerName: 'RusTwoPointConversions',
+      width: 200,
+      editable: false,
+    },
+    {
+      field: 'rusYAC',
+      headerName: 'RusYAC',
+      width: 150,
+      editable: false,
+    },
+  ];
